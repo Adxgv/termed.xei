@@ -88,15 +88,33 @@
 
     <script>
         async function copyUsername() {
-            try {
-                const username = document.getElementById("username").textContent;
-                await navigator.clipboard.writeText(username);
-                alert("Copied: " + username);
-            } catch (err) {
-                console.error("Failed to copy: ", err);
-                alert("Failed to copy username. Please try again.");
-            }
-        }
+    const usernameElement = document.getElementById("username");
+    const username = usernameElement.textContent || usernameElement.innerText;
+
+    try {
+        await navigator.clipboard.writeText(username);
+        alert("Copied: " + username);
+    } catch (err) {
+        console.error("Clipboard copy failed:", err);
+        fallbackCopyText(username);
+    }
+}
+
+// Fallback method for older browsers
+function fallbackCopyText(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+        document.execCommand("copy");
+        alert("Copied: " + text);
+    } catch (err) {
+        alert("Manual Copy Required: " + text);
+    }
+    document.body.removeChild(textArea);
+}
+
 
         function openProfile() {
             window.location.href = "https://discord.com/users/1354941447832604793";
