@@ -44,11 +44,6 @@
             padding: 10px;
             border-radius: 5px;
             display: inline-block;
-            cursor: pointer;
-            transition: transform 0.2s ease-out;
-        }
-        .username-box:hover {
-            transform: scale(1.1);
         }
         .buttons {
             margin-top: 15px;
@@ -79,7 +74,7 @@
 <body>
     <div class="box">
         <div class="status">Termed = <span style="color: red;">True</span></div>
-        <div class="username-box" id="username" onclick="copyUsername()">xei111</div>
+        <div class="username-box" id="username">xei.111</div>
         <p><strong>xei.111</strong> has been termed.</p>
         <div class="buttons">
             <button class="btn" onclick="openProfile()">Open New Discord Profile</button>
@@ -87,33 +82,6 @@
     </div>
 
     <script>
-        async function copyUsername() {
-            const usernameElement = document.getElementById("username");
-            const username = usernameElement.textContent || usernameElement.innerText;
-
-            try {
-                await navigator.clipboard.writeText(username);
-                alert("Copied: " + username);
-            } catch (err) {
-                console.error("Clipboard copy failed:", err);
-                fallbackCopyText(username);
-            }
-        }
-
-        function fallbackCopyText(text) {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-                document.execCommand("copy");
-                alert("Copied: " + text);
-            } catch (err) {
-                alert("Manual Copy Required: " + text);
-            }
-            document.body.removeChild(textArea);
-        }
-
         function openProfile() {
             window.location.href = "https://discord.com/users/1354941447832604793";
         }
